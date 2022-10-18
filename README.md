@@ -1,5 +1,5 @@
 # Dormitory
-SpringBoot + Vue前后端分离
+SpringBoot
 
 B站地址
 
