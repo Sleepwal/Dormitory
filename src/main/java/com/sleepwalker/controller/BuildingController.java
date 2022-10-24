@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
 /**
  * <p>
  *  前端控制器
@@ -37,6 +35,19 @@ public class BuildingController {
         if(buildingService.save(building))
             return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
+    }
+
+    /**
+     * @param page:
+     * @param size:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 分页查询所有宿舍楼
+     */
+    @ApiOperation("分页查询所有宿舍楼")
+    @GetMapping("/list/{page}/{size}")
+    public ResultVo list(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        return ResultVOUtil.success(buildingService.list(page, size));
     }
 }
 

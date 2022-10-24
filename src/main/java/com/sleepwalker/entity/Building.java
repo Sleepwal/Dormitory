@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
  * <p>
  * 
  * </p>
- *
  * @author SleepWalker
  * @since 2022-10-09
  */
