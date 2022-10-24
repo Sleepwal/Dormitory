@@ -123,13 +123,31 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         if(!studentForm.getDormitoryId().equals(studentForm.getOldDormitoryId())) {
             try {
                 //原来宿舍余量+1
-                studentMapper.addAvailable(studentForm.getDormitoryId());
+                dormitoryMapper.addAvailable(studentForm.getDormitoryId());
                 //新宿舍余量+1
-                studentMapper.subAvailable(studentForm.getOldDormitoryId());
+                dormitoryMapper.subAvailable(studentForm.getOldDormitoryId());
             } catch (Exception e) {
                 return false;
             }
         }
+        return true;
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        //宿舍可住人数+1
+        Student student = studentMapper.selectById(id);
+        Dormitory dormitory = dormitoryMapper.selectById(student.getDormitoryId());
+        if(dormitory.getType() > dormitory.getAvailable()) {
+            if(dormitoryMapper.addAvailable(student.getDormitoryId()) != 1) {
+                return false;
+            }
+        }
+
+        //删除学生
+        if(studentMapper.deleteById(id) != 1)
+            return false;
+
         return true;
     }
 }

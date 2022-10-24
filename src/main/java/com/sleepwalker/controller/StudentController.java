@@ -96,5 +96,19 @@ public class StudentController {
             return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
     }
+
+    /**
+     * @param id:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 根据id删除学生
+     */
+    @ApiOperation("删除学生")
+    @DeleteMapping("/deleteById/{id}")
+    public ResultVo deleteById(@PathVariable("id") Integer id) {
+        if(studentService.delete(id))
+            return ResultVOUtil.success(null);
+        return ResultVOUtil.fail();
+    }
 }
 

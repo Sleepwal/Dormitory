@@ -21,4 +21,5 @@ public interface StudentService extends IService<Student> {
     PageVO list(Integer page, Integer size);
     PageVO search(SearchForm searchForm);
     Boolean update(StudentForm studentForm);
+    Boolean delete(Integer id);
 }

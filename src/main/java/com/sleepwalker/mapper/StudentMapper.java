@@ -14,6 +14,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface StudentMapper extends BaseMapper<Student> {
-    int subAvailable(Integer id);
-    int addAvailable(Integer id);
 }
