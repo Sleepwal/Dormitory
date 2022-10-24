@@ -2,6 +2,8 @@ package com.sleepwalker.controller;
 
 
 import com.sleepwalker.entity.Building;
+import com.sleepwalker.form.SearchForm;
+import com.sleepwalker.mapper.BuildingMapper;
 import com.sleepwalker.service.BuildingService;
 import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.ResultVo;
@@ -49,5 +51,12 @@ public class BuildingController {
     public ResultVo list(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
         return ResultVOUtil.success(buildingService.list(page, size));
     }
+
+    @GetMapping("/search")
+    public ResultVo search(SearchForm searchForm) {
+        return ResultVOUtil.success(buildingService.search(searchForm));
+    }
+
+
 }
 
