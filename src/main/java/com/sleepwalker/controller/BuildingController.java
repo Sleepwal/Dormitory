@@ -52,11 +52,42 @@ public class BuildingController {
         return ResultVOUtil.success(buildingService.list(page, size));
     }
 
+    /**
+     * @param searchForm:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 模糊搜索
+     */
+    @ApiOperation("模糊搜索")
     @GetMapping("/search")
     public ResultVo search(SearchForm searchForm) {
         return ResultVOUtil.success(buildingService.search(searchForm));
     }
 
+    /**
+     * @param id:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 根据id查询宿舍楼
+     */
+    @ApiOperation("根据id查询宿舍楼")
+    @GetMapping("/findById/{id}")
+    public ResultVo findById(@PathVariable("id") Integer id) {
+        return ResultVOUtil.success(buildingService.getById(id));
+    }
 
+    /**
+     * @param building:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 修改宿舍楼
+     */
+    @ApiOperation("修改宿舍楼")
+    @PutMapping("/update")
+    public ResultVo update(@RequestBody Building building) {
+        if(buildingService.updateById(building))
+            return ResultVOUtil.success(null);
+        return ResultVOUtil.fail();
+    }
 }
 
