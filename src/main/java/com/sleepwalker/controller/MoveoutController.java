@@ -4,6 +4,7 @@ package com.sleepwalker.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @author SleepWalker
  * @since 2022-10-09
  */
-@Controller
+@RestController
 @RequestMapping("//moveout")
 public class MoveoutController {
 

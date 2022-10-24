@@ -55,6 +55,17 @@ public class DormitoryAdminController {
             return ResultVOUtil.fail();
     }
 
+    /**
+     * @param :
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 查询所有宿管
+     */
+    @ApiOperation("查询所有宿管")
+    @GetMapping("/list")
+    public ResultVo list() {
+        return ResultVOUtil.success(dormitoryAdminService.list());
+    }
 
    /**
     * @param page:
