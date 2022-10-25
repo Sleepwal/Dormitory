@@ -2,6 +2,7 @@ package com.sleepwalker.service;
 
 import com.sleepwalker.entity.Dormitory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sleepwalker.vo.PageVO;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-10-09
  */
 public interface DormitoryService extends IService<Dormitory> {
-
+    PageVO list(Integer page, Integer size);
 }

@@ -4,6 +4,7 @@ import com.sleepwalker.entity.Dormitory;
 import com.sleepwalker.mapper.DormitoryMapper;
 import com.sleepwalker.service.DormitoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sleepwalker.vo.PageVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory> implements DormitoryService {
 
+    @Override
+    public PageVO list(Integer page, Integer size) {
+
+
+        return null;
+    }
 }

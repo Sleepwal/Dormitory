@@ -44,6 +44,19 @@ public class BuildingController {
      * @param size:
      * @return ResultVo
      * @author SleepWalker
+     * @description 查询所有宿舍楼
+     */
+    @ApiOperation("查询所有宿舍楼")
+    @GetMapping("/list")
+    public ResultVo list() {
+        return ResultVOUtil.success(buildingService.list());
+    }
+
+    /**
+     * @param page:
+     * @param size:
+     * @return ResultVo
+     * @author SleepWalker
      * @description 分页查询所有宿舍楼
      */
     @ApiOperation("分页查询所有宿舍楼")
