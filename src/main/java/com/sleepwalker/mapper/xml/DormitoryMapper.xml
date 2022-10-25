@@ -8,4 +8,9 @@
     <update id="addAvailable">
         update dormitory.dormitory set available = available + 1 where id = #{id}
     </update>
+
+    <select id="findAvailableDormitoryId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select id from dormitory.dormitory
+        where available > 0 limit 0,1
+    </select>
 </mapper>

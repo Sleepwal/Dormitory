@@ -89,5 +89,19 @@ public class BuildingController {
             return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
     }
+
+    /**
+     * @param id:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 删除宿舍楼
+     */
+    @ApiOperation("删除宿舍楼")
+    @DeleteMapping("/deleteById/{id}")
+    public ResultVo deleteById(@PathVariable("id") Integer id) {
+        if(buildingService.deleteById(id))
+            return ResultVOUtil.success(null);
+        return ResultVOUtil.fail();
+    }
 }
 
