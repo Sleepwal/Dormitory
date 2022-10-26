@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
 
     private String reason;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
 
 }
