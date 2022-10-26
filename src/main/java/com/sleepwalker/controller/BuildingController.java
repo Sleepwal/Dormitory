@@ -40,8 +40,6 @@ public class BuildingController {
     }
 
     /**
-     * @param page:
-     * @param size:
      * @return ResultVo
      * @author SleepWalker
      * @description 查询所有宿舍楼

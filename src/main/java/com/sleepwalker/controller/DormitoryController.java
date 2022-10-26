@@ -3,6 +3,7 @@ package com.sleepwalker.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sleepwalker.entity.Dormitory;
+import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.service.DormitoryService;
 import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.ResultVo;
@@ -33,6 +34,13 @@ public class DormitoryController {
         return ResultVOUtil.success(dormitoryService.list(page, size));
     }
 
+    @ApiOperation("模糊搜索")
+    @GetMapping("/search")
+    public ResultVo search(SearchForm searchForm) {
+        return ResultVOUtil.success(dormitoryService.search(searchForm));
+    }
+
+
     @ApiOperation("添加宿舍")
     @PostMapping("/save")
     public ResultVo save(@RequestBody Dormitory dormitory) {
@@ -48,6 +56,20 @@ public class DormitoryController {
         QueryWrapper<Dormitory> queryWrapper = new QueryWrapper<>();
         queryWrapper.gt("available", 0);
         return ResultVOUtil.success(dormitoryService.list(queryWrapper));
+    }
+
+    @ApiOperation("根据id查询宿舍")
+    @GetMapping("/findById/{id}")
+    public ResultVo findById(@PathVariable("id")Integer id) {
+        return ResultVOUtil.success(dormitoryService.getById(id));
+    }
+
+    @ApiOperation("更新宿舍")
+    @PutMapping("/update")
+    public ResultVo update(@RequestBody Dormitory dormitory) {
+        if(dormitoryService.updateById(dormitory))
+            return ResultVOUtil.success(null);
+        return ResultVOUtil.fail();
     }
 }
 

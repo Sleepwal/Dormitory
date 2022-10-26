@@ -1,7 +1,9 @@
 package com.sleepwalker.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sleepwalker.entity.Dormitory;
+import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.mapper.BuildingMapper;
 import com.sleepwalker.mapper.DormitoryMapper;
 import com.sleepwalker.service.DormitoryService;
@@ -48,4 +50,32 @@ public class DormitoryServiceImpl extends ServiceImpl<DormitoryMapper, Dormitory
         pageVO.setTotal(resultPage.getTotal());
         return pageVO;
     }
+
+    @Override
+    public PageVO search(SearchForm searchForm) {
+        Page<Dormitory> dormitoryPage = new Page<>(searchForm.getPage(), searchForm.getSize());
+        Page<Dormitory> resultPage;
+        if(searchForm.getValue().equals(""))
+            resultPage = dormitoryMapper.selectPage(dormitoryPage, null);
+        else {
+            QueryWrapper<Dormitory> queryWrapper = new QueryWrapper<>();
+            queryWrapper.like(searchForm.getKey(), searchForm.getValue());
+            resultPage = dormitoryMapper.selectPage(dormitoryPage, queryWrapper);
+        }
+
+        //Building转化为BuildingVO
+        List<DormitoryVO> dormitoryVOList = new ArrayList<>();
+        for(Dormitory dormitory: resultPage.getRecords()) {
+            DormitoryVO dormitoryVO = new DormitoryVO();
+            BeanUtils.copyProperties(dormitory, dormitoryVO);
+            dormitoryVO.setBuildingName(buildingMapper.selectById(dormitory.getBuildingId()).getName());
+            dormitoryVOList.add(dormitoryVO);
+        }
+
+        PageVO pageVO = new PageVO();
+        pageVO.setData(dormitoryVOList);
+        pageVO.setTotal(resultPage.getTotal());
+        return pageVO;
+    }
+
 }
