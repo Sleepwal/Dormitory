@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
 /**
  * <p>
  *  前端控制器
@@ -31,7 +29,7 @@ public class MoveoutController {
         return ResultVOUtil.success(moveoutService.list(page, size));
     }
 
-    @ApiOperation("分页查询，模糊搜索")
+    @ApiOperation("模糊搜索迁出注册")
     @GetMapping("/search")
     public ResultVo search(SearchForm searchForm) {
         return ResultVOUtil.success(moveoutService.search(searchForm));
@@ -43,6 +41,12 @@ public class MoveoutController {
         return ResultVOUtil.success(moveoutService.moveoutList(page, size));
     }
 
+    @ApiOperation("模糊搜索迁出记录")
+    @GetMapping("/moveoutSearch")
+    public ResultVo moveoutSearch(SearchForm searchForm) {
+        return ResultVOUtil.success(moveoutService.moveoutSearch(searchForm));
+    }
+
     @ApiOperation("学生迁入")
     @PutMapping("/moveout/{id}/{value}")
     public ResultVo moveout(@PathVariable("id")Integer id, @PathVariable("value")String value) {
@@ -50,5 +54,6 @@ public class MoveoutController {
             return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
     }
+
 }
 
