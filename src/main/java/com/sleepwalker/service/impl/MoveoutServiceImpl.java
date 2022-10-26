@@ -2,6 +2,7 @@ package com.sleepwalker.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sleepwalker.entity.Dormitory;
 import com.sleepwalker.entity.Moveout;
 import com.sleepwalker.entity.Student;
 import com.sleepwalker.form.SearchForm;
@@ -124,6 +125,61 @@ public class MoveoutServiceImpl extends ServiceImpl<MoveoutMapper, Moveout> impl
         Page<Moveout> moveoutPage = new Page<>(page, size);
         Page<Moveout> resultPage = moveoutMapper.selectPage(moveoutPage, null);
 
+        List<MoveoutVO> moveoutVOList = new ArrayList<>();
+        for (Moveout moveout : resultPage.getRecords()) {
+            MoveoutVO moveoutVO = new MoveoutVO();
+            BeanUtils.copyProperties(moveout, moveoutVO);
+            moveoutVO.setStudentName(studentMapper.selectById(moveout.getStudentId()).getName());
+            moveoutVO.setDormitoryName(dormitoryMapper.selectById(moveout.getDormitoryId()).getName());
+            moveoutVOList.add(moveoutVO);
+        }
+
+        PageVO pageVO = new PageVO();
+        pageVO.setTotal(resultPage.getTotal());
+        pageVO.setData(moveoutVOList);
+
+        return pageVO;
+    }
+
+    @Override
+    public PageVO moveoutSearch(SearchForm searchForm) {
+        Page<Moveout> moveoutPage = new Page<>(searchForm.getPage(), searchForm.getSize());
+        Page<Moveout> resultPage = null;
+        if(searchForm.getValue().equals("")) {
+            resultPage = moveoutMapper.selectPage(moveoutPage, null);
+        } else {
+            QueryWrapper<Moveout> moveoutQueryWrapper = new QueryWrapper<>();
+            if (searchForm.getKey().equals("studentName")) {
+                //模糊搜索学生名字
+                QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<>();
+                studentQueryWrapper.like("name", searchForm.getValue());
+                List<Student> studentList = studentMapper.selectList(studentQueryWrapper);
+
+                //搜索出的学生id
+                List<Integer> studentIdList = new ArrayList<>();
+                for (Student student : studentList) {
+                    studentIdList.add(student.getId());
+                }
+
+                //student_id in studentIdList的学生
+                moveoutQueryWrapper.in("student_id", studentIdList);
+            } else if (searchForm.getKey().equals("dormitoryName")) {
+                //模糊搜索宿舍名字
+                QueryWrapper<Dormitory> dormitoryQueryWrapper = new QueryWrapper<>();
+                dormitoryQueryWrapper.like("name", searchForm.getValue());
+                List<Dormitory> dormitoryList = dormitoryMapper.selectList(dormitoryQueryWrapper);
+
+                //搜索出的宿舍id
+                List<Integer> dormitoryIdList = new ArrayList<>();
+                for (Dormitory dormitory : dormitoryList) {
+                    dormitoryIdList.add(dormitory.getId());
+                }
+
+                //in studentIdList的宿舍
+                moveoutQueryWrapper.in("dormitory_id", dormitoryIdList);
+            }
+            resultPage = moveoutMapper.selectPage(moveoutPage, moveoutQueryWrapper);
+        }
         List<MoveoutVO> moveoutVOList = new ArrayList<>();
         for (Moveout moveout : resultPage.getRecords()) {
             MoveoutVO moveoutVO = new MoveoutVO();

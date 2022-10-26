@@ -18,4 +18,5 @@ public interface MoveoutService extends IService<Moveout> {
     public PageVO search(SearchForm searchForm);
     Boolean moveout(Integer id, String value);
     PageVO moveoutList(Integer page, Integer size);
+    public PageVO moveoutSearch(SearchForm searchForm);
 }
