@@ -2,10 +2,10 @@ package com.sleepwalker.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -32,7 +32,7 @@ import lombok.EqualsAndHashCode;
 
     private Integer dormitoryAdminId;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
     private String reason;
 

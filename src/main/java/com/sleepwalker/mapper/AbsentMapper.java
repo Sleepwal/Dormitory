@@ -2,6 +2,7 @@ package com.sleepwalker.mapper;
 
 import com.sleepwalker.entity.Absent;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author SleepWalker
  * @since 2022-10-09
  */
+@Repository
 public interface AbsentMapper extends BaseMapper<Absent> {
 
 }

@@ -1,20 +1,17 @@
 package com.sleepwalker.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sleepwalker.entity.DormitoryAdmin;
 import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.form.UserForm;
 import com.sleepwalker.mapper.DormitoryAdminMapper;
 import com.sleepwalker.service.DormitoryAdminService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sleepwalker.vo.PageVO;
 import com.sleepwalker.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 /**
  * <p>
@@ -31,7 +28,7 @@ public class DormitoryAdminServiceImpl extends ServiceImpl<DormitoryAdminMapper,
 
     @Override
     public ResultVo login(UserForm userForm) {
-        ResultVo<UserForm> resultVo = new ResultVo<>();
+        ResultVo<DormitoryAdmin> resultVo = new ResultVo<>();
 
         //1.用户是否存在
         QueryWrapper<DormitoryAdmin> queryWrapper = new QueryWrapper<>();
@@ -43,7 +40,7 @@ public class DormitoryAdminServiceImpl extends ServiceImpl<DormitoryAdminMapper,
             //2.密码是否正确
             if(dormitoryAdmin.getPassword().equals(userForm.getPassword())) {
                 resultVo.setCode(0);
-                resultVo.setData(userForm); //设置表单数据
+                resultVo.setData(dormitoryAdmin); //设置表单数据
             } else {
                 resultVo.setCode(-2);
             }
