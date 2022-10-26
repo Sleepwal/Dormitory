@@ -71,5 +71,13 @@ public class DormitoryController {
             return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
     }
+
+    @ApiOperation("删除宿舍")
+    @DeleteMapping("/deleteById/{id}")
+    public ResultVo deleteById(@PathVariable("id")Integer id) {
+        if(dormitoryService.deleteById(id))
+            return ResultVOUtil.success(null);
+        return ResultVOUtil.fail();
+    }
 }
 

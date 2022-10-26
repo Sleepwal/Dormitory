@@ -16,4 +16,5 @@ import com.sleepwalker.vo.PageVO;
 public interface DormitoryService extends IService<Dormitory> {
     PageVO list(Integer page, Integer size);
     public PageVO search(SearchForm searchForm);
+    Boolean deleteById(Integer id);
 }
