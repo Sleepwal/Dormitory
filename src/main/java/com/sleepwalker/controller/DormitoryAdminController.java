@@ -6,13 +6,10 @@ import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.form.UserForm;
 import com.sleepwalker.service.DormitoryAdminService;
 import com.sleepwalker.util.ResultVOUtil;
-import com.sleepwalker.vo.PageVO;
 import com.sleepwalker.vo.ResultVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 /**
  * <p>
@@ -27,6 +24,12 @@ import org.springframework.stereotype.Controller;
 public class DormitoryAdminController {
     @Autowired
     private DormitoryAdminService dormitoryAdminService;
+
+    @ApiOperation("宿管注册")
+    @PutMapping("/register")
+    public ResultVo register(@RequestBody DormitoryAdmin dormitoryAdmin) {
+        return dormitoryAdminService.register(dormitoryAdmin);
+    }
 
     /**
      * @param userForm:

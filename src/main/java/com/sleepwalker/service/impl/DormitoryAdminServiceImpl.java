@@ -8,6 +8,7 @@ import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.form.UserForm;
 import com.sleepwalker.mapper.DormitoryAdminMapper;
 import com.sleepwalker.service.DormitoryAdminService;
+import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.PageVO;
 import com.sleepwalker.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,20 @@ import org.springframework.stereotype.Service;
 public class DormitoryAdminServiceImpl extends ServiceImpl<DormitoryAdminMapper, DormitoryAdmin> implements DormitoryAdminService {
     @Autowired
     private DormitoryAdminMapper dormitoryAdminMapper;
+
+    @Override
+    public ResultVo register(DormitoryAdmin dormitoryAdmin) {
+        QueryWrapper<DormitoryAdmin> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", dormitoryAdmin.getUsername());
+        DormitoryAdmin one = getOne(wrapper);
+
+        //用户已存在
+        if(one != null) return ResultVOUtil.failWithCode(-2);
+
+        if(save(dormitoryAdmin)) return ResultVOUtil.success(null);
+
+        return ResultVOUtil.fail();
+    }
 
     @Override
     public ResultVo login(UserForm userForm) {

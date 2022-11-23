@@ -1,10 +1,6 @@
 package com.sleepwalker.util;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.sleepwalker.vo.ResultVo;
-import org.apache.ibatis.jdbc.Null;
-
-import javax.xml.crypto.Data;
 
 /**
  * @package: com.sleepwalker.util
@@ -39,6 +35,12 @@ public class ResultVOUtil {
     public static ResultVo fail() {
         ResultVo resultVo = new ResultVo();
         resultVo.setCode(-1);
+        return resultVo;
+    }
+
+    public static ResultVo failWithCode(int code) {
+        ResultVo resultVo = new ResultVo();
+        resultVo.setCode(code);
         return resultVo;
     }
 }
