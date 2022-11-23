@@ -3,6 +3,7 @@ package com.sleepwalker.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sleepwalker.dto.DormitoryAdminDTO;
 import com.sleepwalker.entity.DormitoryAdmin;
 import com.sleepwalker.form.SearchForm;
 import com.sleepwalker.form.UserForm;
@@ -11,8 +12,11 @@ import com.sleepwalker.service.DormitoryAdminService;
 import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.PageVO;
 import com.sleepwalker.vo.ResultVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.sleepwalker.util.Constants.*;
 
 /**
  * <p>
@@ -34,7 +38,7 @@ public class DormitoryAdminServiceImpl extends ServiceImpl<DormitoryAdminMapper,
         DormitoryAdmin one = getOne(wrapper);
 
         //用户已存在
-        if(one != null) return ResultVOUtil.failWithCode(-2);
+        if(one != null) return ResultVOUtil.failWithCode(UserExit);
 
         if(save(dormitoryAdmin)) return ResultVOUtil.success(null);
 
@@ -43,21 +47,24 @@ public class DormitoryAdminServiceImpl extends ServiceImpl<DormitoryAdminMapper,
 
     @Override
     public ResultVo login(UserForm userForm) {
-        ResultVo<DormitoryAdmin> resultVo = new ResultVo<>();
+        ResultVo<DormitoryAdminDTO> resultVo = new ResultVo<>();
 
         //1.用户是否存在
         QueryWrapper<DormitoryAdmin> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", userForm.getUsername());
         DormitoryAdmin dormitoryAdmin = dormitoryAdminMapper.selectOne(queryWrapper);
         if(dormitoryAdmin == null) {
-            resultVo.setCode(-1);
+            resultVo.setCode(UserNotExit);
         } else {
-            //2.密码是否正确
+            //2.密码正确
             if(dormitoryAdmin.getPassword().equals(userForm.getPassword())) {
-                resultVo.setCode(0);
-                resultVo.setData(dormitoryAdmin); //设置表单数据
-            } else {
-                resultVo.setCode(-2);
+                resultVo.setCode(ResultSuccess);
+                //转化成DTO
+                DormitoryAdminDTO dormitoryAdminDTO = new DormitoryAdminDTO();
+                BeanUtils.copyProperties(dormitoryAdmin, dormitoryAdminDTO);
+                resultVo.setData(dormitoryAdminDTO); //设置表单数据
+            } else { //密码错误
+                resultVo.setCode(ErrorPassword);
             }
         }
 
