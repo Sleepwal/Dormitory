@@ -38,6 +38,12 @@ public class ResultVOUtil {
         return resultVo;
     }
 
+    /**
+     * @param code:
+     * @return ResultVo
+     * @author SleepWalker
+     * @description 失败，自定义码
+     */
     public static ResultVo failWithCode(int code) {
         ResultVo resultVo = new ResultVo();
         resultVo.setCode(code);
