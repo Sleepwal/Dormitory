@@ -2,6 +2,9 @@ package com.sleepwalker.util;
 
 import com.sleepwalker.vo.ResultVo;
 
+import static com.sleepwalker.util.Constants.ResultFail;
+import static com.sleepwalker.util.Constants.ResultSuccess;
+
 /**
  * @package: com.sleepwalker.util
  * @className: ResultVOUtil
@@ -20,7 +23,7 @@ public class ResultVOUtil {
      */
     public static ResultVo success(Object object) {
         ResultVo resultVo = new ResultVo();
-        resultVo.setCode(0);
+        resultVo.setCode(ResultSuccess);
         resultVo.setData(object);
         return resultVo;
     }
@@ -34,7 +37,7 @@ public class ResultVOUtil {
      */
     public static ResultVo fail() {
         ResultVo resultVo = new ResultVo();
-        resultVo.setCode(-1);
+        resultVo.setCode(ResultFail);
         return resultVo;
     }
 
