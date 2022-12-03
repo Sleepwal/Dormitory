@@ -116,11 +116,9 @@ public class DormitoryAdminController {
     @PutMapping("/update")
     public ResultVo update(@RequestBody DormitoryAdmin dormitoryAdmin) {
         boolean update = dormitoryAdminService.updateById(dormitoryAdmin);
-        if(update) {
-            return ResultVOUtil.success(null);
-        } else {
-            return ResultVOUtil.fail();
-        }
+        if(update) return ResultVOUtil.success(null);
+        else return ResultVOUtil.fail();
+
     }
 
     /**

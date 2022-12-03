@@ -12,8 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
 /**
  * <p>
  *  前端控制器
@@ -37,7 +35,8 @@ public class StudentController {
     @ApiOperation("添加学生")
     @PostMapping("/save")
     public ResultVo save(@RequestBody Student student) {
-        if(studentService.mySave(student)) return ResultVOUtil.success(null);
+        if(studentService.mySave(student))
+            return ResultVOUtil.success(null);
         return ResultVOUtil.fail();
     }
 

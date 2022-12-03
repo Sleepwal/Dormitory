@@ -16,13 +16,13 @@ import java.io.Serializable;
  * @since 2022-10-09
  */
 @Data
-  @EqualsAndHashCode(callSuper = false)
-    public class SystemAdminDTO implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class SystemAdminDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
-      private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     private String username;
 

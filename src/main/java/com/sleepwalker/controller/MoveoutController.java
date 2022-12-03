@@ -47,7 +47,7 @@ public class MoveoutController {
         return ResultVOUtil.success(moveoutService.moveoutSearch(searchForm));
     }
 
-    @ApiOperation("学生迁入")
+    @ApiOperation("学生迁出")
     @PutMapping("/moveout/{id}/{value}")
     public ResultVo moveout(@PathVariable("id")Integer id, @PathVariable("value")String value) {
         if(moveoutService.moveout(id, value))

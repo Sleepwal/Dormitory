@@ -2,7 +2,7 @@ package com.sleepwalker.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sleepwalker.entity.Building;
 import com.sleepwalker.entity.Dormitory;
 import com.sleepwalker.entity.Student;
@@ -12,11 +12,8 @@ import com.sleepwalker.mapper.DormitoryAdminMapper;
 import com.sleepwalker.mapper.DormitoryMapper;
 import com.sleepwalker.mapper.StudentMapper;
 import com.sleepwalker.service.BuildingService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.BuildingVO;
 import com.sleepwalker.vo.PageVO;
-import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,7 +99,6 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
             QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<>();
             studentQueryWrapper.eq("dormitory_id", dormitory.getId());
             List<Student> studentList = studentMapper.selectList(studentQueryWrapper);
-
 
             for(Student student: studentList) {
                 //未住满的宿舍id
