@@ -10,6 +10,7 @@ import com.sleepwalker.service.AbsentService;
 import com.sleepwalker.service.BuildingService;
 import com.sleepwalker.service.DormitoryService;
 import com.sleepwalker.service.StudentService;
+import com.sleepwalker.util.RegexUtil;
 import com.sleepwalker.util.ResultVOUtil;
 import com.sleepwalker.vo.ResultVo;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.sleepwalker.util.Regex.CHAR;
 
 /**
  * <p>
@@ -78,7 +81,8 @@ public class AbsentController {
     @PostMapping("/save")
     public ResultVo save(@RequestBody Absent absent){
         String createDate = absent.getCreateDate();
-        createDate = createDate.substring(0, 10);
+//        createDate = createDate.substring(0, 10);
+        createDate = RegexUtil.replaceRegex(CHAR, createDate, " ");
         absent.setCreateDate(createDate);
         boolean save = this.absentService.save(absent);
         if(!save) return ResultVOUtil.fail();
